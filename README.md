@@ -36,6 +36,6 @@ public class VendingMachine{
 		
 	}while(!option.equals("7"));
 	
-  }
+  }d
 	
 }
