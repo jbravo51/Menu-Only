@@ -1,77 +1,29 @@
-
-import java.util.Scanner;
-public class MainTask
-{
-	public static void main (String args[]) 
-	{
-		String option;
-		//int 
-		VendingMcahine[] machineArray=new VendingMachine[40];
-		do
-		{
-			System.out.println("*******Vending Machine Manager********");
-			System.out.println("1- To Add a Machine, enter 1 and press Enter");
-			System.out.println("2- To Delete a Machine, enter 2 and press Enter");
-			System.out.println("3- To Refill a Machine, enter 3 and press Enter");
-			System.out.println("4- To Simulate purchase, enter 4 and press Enter");
-		    	System.out.println("5- For Audit reports , enter 5 and press Enter");
-		    	System.out.println("6- To Exit the menu , enter 6 and press Enter");
-		    	System.out.println("\n Please insert an intiger:");
-		    	Scanner scan = new Scanner(System.in);
-		    	option= scan.nextLine();
-		    	switch(option)
-			{
-		    		case "1":
-		    		{
-		    			//addMachine=new
-		    			break;
-		    		}
-		    		case "2":
-		    		{
-		    			//deleteMAchine=new
-		    			break;
-		    		}
-		    		case "3":
-		    		{
-		    			//refillMachine=new
-		    			break;
-		    		}
-		    		case "4":
-		    		{
-		    			//simulation=new
-		    			break;
-		    		}
-		    		case "5":
-		    		{
-		    			//audit=new
-		    			break;
-		    		}
-		    		case "6":
-		    		{
-		    			//addMachine=new
-		    			break;
-		    		}
-		    		default:
-		    		System.out.println("Invalid entry! Please enter an intiger between 1 to 6");
-		    	}
-		}while(!option.equals("7"));
-	}
-}
-public class VendingMachine()
+public class VendingMachine
 {	//Member Variables
-	String type:
-	int machineID;
+	String type;
+	int machineId;
+	int[] slot;
 	int billContain;
-	Dooble coinContain;
+	Double coinContain;
 	//Constructor
 	public VendingMachine()
 	{
-		
+
 	}
+	public VendingMachine(int machineId,String type,int[] slot)
+	{
+		this.machineId=machineId;
+		this.slot=slot;
+		this.type=type;
+	}
+	void info()
+    {
+        System.out.println("Machine"+machineId+" is a "+type+", and it have "+slot+"");
+    }
 	//Method to add a Machine
-	public void addMachine()
+	public void addMachine(String type)
 	{	
-		
+		//return VendingMachine(,String type,int[] slot)
 		
 	}
 	//Method to refill a Machine
@@ -101,21 +53,39 @@ public class VendingMachine()
 	}
 	
 }
-public class sodaMachine extends VendingMachine
+class sodaMachine extends VendingMachine
 {	
 	int[] slot=new int[8];
-	dooble[] cost=new int[8];
+	public int[] soslots()
+	{
+		for(int i=0;i<8;i++)
+		slot[i]=i;
+		return slot
+	}
+	//double[] cost=new int[8];
 }
-public class snackMachine extends VendingMachine
+class snackMachine extends VendingMachine
 {	
 	int[] slot=new int[40];
-	dooble[] cost=new int[8];
+	public int[] snslots()
+	{
+		for(int i=0;i<8;i++)
+			slot[i]=i;
+	}
+
+	//double[] cost=new int[8];
 }
-public class comboMachine extends VendingMachine
+class comboMachine extends VendingMachine
 {	
-	int[] SodaSlot=new int[8];
-	int[] snackSlot=new int[20];
-	dooble[] sodaCost=new int[8];
-	dooble[] sodaCost=new int[20];
+	static int[] SodaSlot=new int[8];
+	//int[] snackSlot=new int[20];
+	public int[] cslots()
+	{
+	for(int i=0;i<8;i++)
+	{
+		SodaSlot[i]=i;
+	}}
+	//double[] sodaCost=new int[8];
+	//double[] sodaCost=new int[20];
 }
 
