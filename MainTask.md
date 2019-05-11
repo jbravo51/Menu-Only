@@ -1,4 +1,10 @@
-//import VendingMachine.*;
+/*CIS 144. 
+Vending Machine
+Jorge Bravo - jlbravo93@hotmail.com 
+Seema Khan - khanseema2000@gmail.com
+Hoda Masteri - hodamasteri@gmail.com
+Rudy Cordero - rcordero17@student.ccc.edu
+*/
 import java.util.Scanner;
 public class MainTask{
 	public static void main (String args[]) 
