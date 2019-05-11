@@ -1,3 +1,4 @@
+//import VendingMachine.*;
 import java.util.Scanner;
 public class MainTask{
 	public static void main (String args[]) 
@@ -25,6 +26,9 @@ public class MainTask{
 		    {
 		    	case "1":
 		    	{
+		    		if(n==40)
+		    		{	System.out.println("The float of Machines is full. No more Machine can be add.");
+		    			break;}
 		    		System.out.println("Please select wath type of Machine you want to add");
 		    		System.out.println("1- Soda Machine");
 					System.out.println("2- Snack Machine");
@@ -35,21 +39,21 @@ public class MainTask{
 				    {
 				    	case "1":
 				    	{
-				    		 machineArray[n]=new VendingMachine(n,"Soda",sMachine.soslots());
+				    		 machineArray[n]=new VendingMachine(n,"Soda",sMachine.soslots(),0,30);
 				    		 //methosVM.addMachine("Soda");
 				    		 n++;
 				    		break;
 				    	}
 				    	case "2":
 				    	{
-				    		machineArray[n]=new VendingMachine(n,"Snack",snMachine.slot);
+				    		machineArray[n]=new VendingMachine(n,"Snack",snMachine.snslots(),0,30);
 				    		//methosVM.addMachine("Snack");
 				    		n++;
 				    		break;
 				    	}
 				    	case "3":
 				    	{
-				    		machineArray[n]=new VendingMachine(n,"Combo",cMachine.SodaSlot);
+				    		machineArray[n]=new VendingMachine(n,"Combo",cMachine.cslots(),0,30);
 				    		//methosVM.addMachine("Combo");
 				    		n++;
 				    		break;
@@ -63,7 +67,21 @@ public class MainTask{
 		    	case "2":
 		    	{
 		    		//deleteMAchine=new
-		    		break;
+		    		if(n>0)
+			        {
+		    			System.out.print("Enter Machine ID to be deleted : ");
+		    			int IDnum = scan.nextInt();
+		    			if(IDnum>=0&&IDnum<=n)
+		    			{	machineArray=methosVM.deleteMachine(IDnum, machineArray, n);
+			        		n--;
+			        		break;
+		    			}else
+		    			{	System.out.print("\nMachine ID not found ");
+		        			break;}
+			        }else
+			        {	System.out.print("\nThere are no machines");
+		        		break;
+			        }
 		    	}
 		    	case "3":
 		    	{
@@ -73,14 +91,22 @@ public class MainTask{
 		    	case "4":
 		    	{
 		    		//simulation=new
+		    		System.out.print("Enter Machine ID to purchase from : ");
+			        int IDnum = scan.nextInt();
+			        boolean machineDetected=false;
+			        for(int k = 0; k <n; k++)
+			        {   if(machineArray[k].machineId == IDnum)
+			            {	machineDetected=true;
+			            	machineArray[k].simulation(k);
+			            }
+					}
+			        if (machineDetected==false) 
+			        {  	System.out.print("\nInvalid Machine ID");}
 		    		break;
 		    	}
 		    	case "5":
 		    	{
-		    		for(int i=0;i<n;i++)
-					{
-		    			machineArray[i].info();
-					}		    		//audit=new
+		    		methosVM.audit(machineArray,n);		    		//audit=new
 		    		break;
 		    	}
 		    	case "6":
@@ -91,7 +117,6 @@ public class MainTask{
 		    	default:
 		    		System.out.println("Invalid entry! Please enter an intiger between 1 to 6");
 		    }
-		}while(!option.equals("7"));
+		}while(!option.equals("6"));
 	}
 }
-
