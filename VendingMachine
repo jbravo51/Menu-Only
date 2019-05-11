@@ -1,26 +1,25 @@
+import java.util.Scanner;
 public class VendingMachine
 {	//Member Variables
 	String type;
 	int machineId;
 	int[][] slot;
-	int billContain;
-	Double coinContain;
+	
+	public static double price;
+	public int billContain; 
+	public double coinContain;
 	//Constructor
 	public VendingMachine()
-	{
-
-	}
-	public VendingMachine(int machineId,String type,int[][] slot)
-	{
-		this.machineId=machineId;
+	{ }
+	public VendingMachine(int machineId,String type,int[][] slot,int billContain,double coinContain)
+	{	this.machineId=machineId;
 		this.slot=slot;
 		this.type=type;
+		this.billContain=billContain;
+		this.coinContain=coinContain;
 	}
 	void info()
-    {
-        System.out.println("Machine number "+machineId+" is a "+type+" MAchine, and it have ");
-        
-    }
+    {	System.out.println("Machine number "+machineId+" is a "+type+" Machine, and it have ");}
 	//Method to add a Machine
 	public void addMachine(String type)
 	{	
@@ -33,29 +32,79 @@ public class VendingMachine
 	
 	}
         //Method to remove a Machine
-	public void deleteMachine()
+	public VendingMachine[] deleteMachine(int IDnum, VendingMachine[] machineArray, int totalNumofMachines)
 	{
-	
-	}
-	//Method that shows the inventory of a Machine
-	public void inventory()
-	{
-	
+		for(int k = 0; k < totalNumofMachines; k++)
+		{	if(machineArray[k].machineId == IDnum)
+			{   // shifting elements
+                for(int m = k; m < totalNumofMachines; m++)
+                {	machineArray[m]= machineArray[m+1];
+                }totalNumofMachines--;   
+            }
+        }
+		for(int k = 0; k < totalNumofMachines; k++)
+		{	machineArray[k].machineId=k;
+        }return machineArray;
 	}
 	//Method that simulate the use of a machine
-	public void simulation()
+	public void simulation(int k)
 	{
-	
+		int bills=0;
+		double pric=0,change=0;
+    	System.out.print("\nThis machine is a "+this.type+" machine");
+    	System.out.println("\nEnter an integer (between 1 and "+((this.slot.length))+") for the slot # to purchase from");
+    	Scanner scan = new Scanner(System.in);
+		int option= scan.nextInt();
+		if(option>=1 || option<=((this.slot.length)))
+		{if(this.slot[option-1][1]>0)
+			{	System.out.print("\nEnter the value of bills: ");
+				bills= scan.nextInt();
+				this.billContain+=bills;
+				this.slot[option-1][1]--;
+				if(this.type=="Soda") {pric=sodaMachine.price;}
+				if(this.type=="Snack") {pric=snackMachine.price;}
+				if(this.type=="Combo") {pric=comboMachine.price;}
+				change=bills-pric;
+				this.coinContain-=change;
+				System.out.print("\nPurchased one "+this.type+" from machine "+this.machineId+" slot number"+option);
+				System.out.print("\nEnjoy!! ");
+				System.out.print("\nYour change is:"+change);
+			}
+			else { System.out.print("\nThis slot is empty, please choose another slot");}
+		}
+		else { System.out.print("\nInvalid slot number");}
 	}
 	//Method that shows the inventory of a Machine
-	public void audit()
+	public void audit(VendingMachine[] mArray,int n)
 	{
-	
+		for(int i=0;i<n;i++)
+		{
+			mArray[i].info();
+			//System.out.print(" \n ");
+			for(int z=0;z<(mArray[i].slot.length+1);z++)
+			{
+				if(mArray[i].type=="Combo"&&z<8)
+					{System.out.print("Soda  ");}
+				if(mArray[i].type=="Combo"&&z>8)
+					{System.out.print("Snack  ");}
+			}System.out.print("\n");
+			for(int j=0;j<mArray[i].slot.length;j++)
+			{
+				System.out.print(" "+mArray[i].slot[j][0]+"    ");
+
+			}System.out.print(" Slots\n ");
+			for(int j=0;j<mArray[i].slot.length;j++)
+			{
+				System.out.print(mArray[i].slot[j][1]);if(j>8) {System.out.print("     ");}else {System.out.print("    ");}
+			}System.out.print(" Units\n\n ");
+			
+		}
 	}
 	
 }
 class sodaMachine extends VendingMachine
 {	
+	static double price=2.25;
 	public int[][] soslots()
 	{
 		int[][] slot=new int[8][2];
@@ -65,10 +114,9 @@ class sodaMachine extends VendingMachine
 		}
 		return slot;
 	}
-	//double[] cost=new int[8];
 }
 class snackMachine extends VendingMachine
-{	
+{	static double price=3.00;
 	public int[][] snslots()
 	{
 		int[][] slot=new int[40][2];
@@ -82,12 +130,12 @@ class snackMachine extends VendingMachine
 	//double[] cost=new int[8];
 }
 class comboMachine extends VendingMachine
-{	
-	//int[] snackSlot=new int[20];
+{	double priceso=2.25;
+	double pricesn=3.00;
 	public int[][] cslots()
 	{
-		int[][] slot=new int[8][2];
-		for(int i=0;i<8;i++)
+		int[][] slot=new int[28][2];
+		for(int i=0;i<28;i++)
 		{	slot[i][0]=i+1;
 			slot[i][1]=10;
 		}
